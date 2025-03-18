@@ -1,16 +1,17 @@
+import warnings
 from itertools import islice
 from PIL import Image
-import warnings
 
 TRASHOLD = 127
 GLYPH_SIZE = 16
-ICON_SIZE = 32
+PICTOGRAM_SIZE = 32
 
 
 def _warn_unsupported_size(size: int):
-    if size not in {GLYPH_SIZE, ICON_SIZE}:
+    if size not in {GLYPH_SIZE, PICTOGRAM_SIZE}:
         warnings.warn(
-            f"Using a size different from {GLYPH_SIZE} for a font or {ICON_SIZE} for an icon may cause unexpected behavior.",
+            f"Using a size different from {GLYPH_SIZE} for a font "
+            f"or {PICTOGRAM_SIZE} for a pictogram may cause unexpected behavior.",
             UserWarning,
             stacklevel=2,
         )
@@ -71,20 +72,30 @@ def decode_glyphs(*glyphs: [bytes, bytearray], size: int) -> Image.Image:
 
 
 if __name__ == "__main__":
-    with open(r"fonts/cyrillic.bin", "rb") as fp:
+    with open(r"fonts/cyrillic_ukraine.bin", "rb") as fp:
         d = fp.read()
         im = decode_glyphs(d, size=GLYPH_SIZE)
         im.save("assets/cyrillic.bmp")
         gl = encode_glyphs(im, size=GLYPH_SIZE)
         assert gl == d
 
-    with open(r"fonts/latin.bin", "rb") as fp:
+    with open(r"fonts/latin_v7.bin", "rb") as fp:
         d = fp.read()
         im = decode_glyphs(d, size=GLYPH_SIZE)
-        im.save("assets/latin.bmp")
+        im.save("assets/latin_v7.bmp")
         gl = encode_glyphs(im, size=GLYPH_SIZE)
-        # assert gl == d
-        for i, j in enumerate(d):
-            if gl[i] != j:
-                print(i, i // (32 * 16), gl[i], j)
+        assert gl == d
 
+    with open(r"fonts/pictogram_v35_3_Seven.bin", "rb") as fp:
+        d = fp.read()
+        im = decode_glyphs(d, size=PICTOGRAM_SIZE)
+        im.save("assets/pictogram_v35_3_Seven.bmp")
+        gl = encode_glyphs(im, size=PICTOGRAM_SIZE)
+        assert gl == d
+
+    with open(r"fonts/pictogram_v33.bin", "rb") as fp:
+        d = fp.read()
+        im = decode_glyphs(d, size=PICTOGRAM_SIZE)
+        im.save("assets/pictogram_v33.bmp")
+        gl = encode_glyphs(im, size=PICTOGRAM_SIZE)
+        assert gl == d
