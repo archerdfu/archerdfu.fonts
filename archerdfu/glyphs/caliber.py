@@ -207,3 +207,10 @@ if __name__ == "__main__":
 
     ic64 = mkicon("308WIN", 100.5, size=64)
     decode(ic64, size=64).show()
+
+    with open(r"fonts/profimage.bin", "rb") as fp:
+        d = fp.read()
+        im = decode_all(d, size=ICON_SIZE)
+        im.save("assets/profimage.bmp")
+        gl = encode_all(im, size=ICON_SIZE)
+        assert gl == d
