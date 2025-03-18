@@ -3,13 +3,13 @@ requires = ["setuptools", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "archerdfu.fonts"
+name = "archerdfu.glyphs"
 version = "0.1.0b0"
 description = "Module to operate and modify archer reticle2 files"
 readme = "README.md"
 requires-python = ">=3.10"
 keywords = ["ARCHER", "archerdfu", "pydfuutil", 'dfuutil']
-license = {file = "LICENSE"}
+license = { file = "LICENSE" }
 classifiers = [
     "Intended Audience :: Developers",
     "Natural Language :: English",
@@ -24,8 +24,9 @@ classifiers = [
 ]
 dependencies = [
     "pillow>=11.1.0",
+    "pyfiglet>=1.0.2",
+    "typing-extensions>=4.12.2",
 ]
-
 
 [project.urls]
 "Homepage" = "https://github.com/archerdfu/archerdfu.fonts"
@@ -33,7 +34,7 @@ dependencies = [
 "Source" = "https://github.com/archerdfu/archerdfu.fonts"
 
 [tool.setuptools]
-py-modules = ["archerdfu.fonts"]
+py-modules = ["archerdfu.glyphs"]
 license-files = []
 
 [tool.setuptools.packages.find]
@@ -48,8 +49,5 @@ dev = [
 
 [dependency-groups]
 dev = [
-    "build>=1.2.2.post1",
     "pytest>=8.3.5",
-    "setuptools>=76.0.0",
-    "wheel>=0.45.1",
 ]
